@@ -1,0 +1,65 @@
+<div class="container-fluid">
+    <div class="container w-100">
+        <div class="refresh">
+            <button class="btn" (click)="getPatients()"><i class="fas fa-sync-alt"></i> refresh</button>
+        </div>
+        <div class="content" *ngIf="PatientDetails.length >= 1">
+            <div class="card mt-2" *ngFor="let Patdetails of PatientDetails ">
+                <div class="patient w-100 p-2 d-flex flex-row align-items-center">
+
+
+                    <div class="pat-image">
+                        <img class="border border-1 border-secondary rounded-circle p-1" [src]='"http://localhost:8000"+Patdetails.image || "../../../assets/images/patient.png"' alt="Patient Image" width="150px" height="150px">
+                    </div>
+                    <div class="pat-info d-flex flex-column">
+                        <div class="col">
+                            <div class="row py-2">
+                                <div class="col-md-12">
+                                    <b>PatID: </b> <span class="PatID"> <b>{{Patdetails.PatID}}</b></span>
+                                </div>
+                            </div>
+                            <div class="row-md-12 d-flex flex-row justify-content-between">
+                                <div class="col-md-12 d-flex flex-column">
+                                    <div>
+                                        <b>Full Name : </b> <span class="fName">{{Patdetails.fName}} {{Patdetails.lName}}</span></div>
+                                    <!--<div>
+                                        <b>City : </b> <span class="city">{{Patdetails.city}}</span>
+                                    </div>
+                                    <div>
+                                        <b>Town: </b><span class="state">{{Patdetails.state}}</span>
+                                    </div>-->
+
+                                </div>
+                                <div class="col-md-12 d-flex flex-column">
+                                    <div>
+                                        <b>Email : </b><span class="emailID">{{Patdetails.emailID}}</span></div>
+                                    <div>
+                                        <b>Phone: </b><span class="phone">{{Patdetails.phone}}</span>
+                                    </div>
+                                    <div>
+                                        <b>City </b><span class="city">{{Patdetails.city}}</span>
+                                    </div>
+                                    <div>
+                                        <b>Town: </b><span class="state">{{Patdetails.state}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <button class="btn btn-danger" (click)="onDeletePatient(Patdetails.id,Patdetails.PatID)">
+            <i class="fas fa-trash"></i>
+          </button>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="showProgressCard" class="prgrs mt-3 d-flex flex-column align-items-center">
+            <label for="progress">{{progressMsg}}</label>
+            <progress id="progress"></progress>
+        </div>
+
+
+
+    </div>
+    <app-progress_card [show]="showCard" [success]="showSuccess" [warn]="showWarn" [msg_text]="progressTxt" [buttonTxt]="buttonTxt" (retry)="delete()" (close)="cardClose()"></app-progress_card>
+</div>
